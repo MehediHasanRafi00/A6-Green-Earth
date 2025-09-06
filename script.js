@@ -1,6 +1,16 @@
 const categoriesContainer = document.getElementById("categoriesContainer");
 const cardContainer = document.getElementById("cardContainer");
 
+const manageSpinner = (status) => {
+  if (status === true) {
+    document.getElementById("spinner").classList.remove("hidden");
+    document.getElementById("cardContainer").classList.add("hidden");
+  } else {
+    document.getElementById("cardContainer").classList.remove("hidden");
+    document.getElementById("spinner").classList.add("hidden");
+  }
+};
+
 loadCategory = () => {
   fetch("https://openapi.programming-hero.com/api/categories")
     .then((res) => res.json())
@@ -13,7 +23,7 @@ loadCategory = () => {
 showCategory = (category) => {
   category.forEach((cat) => {
     categoriesContainer.innerHTML += `
-    <li id="${cat.id}" class=" p-2  font-medium hover:text-white hover:bg-[#15803d] rounded-[4px] list-none ">
+    <li id="${cat.id}" class=" p-2  font-medium hover:text-white hover:bg-[#15803d] rounded-[4px] list-none cursor-pointer">
     ${cat.category_name}
     </li>
     `;
@@ -32,7 +42,16 @@ showCategory = (category) => {
   });
 };
 
+const loadCardAll = () => {
+  fetch("https://openapi.programming-hero.com/api/plants")
+    .then((res) => res.json())
+    .then((data) => {
+      showCardByCategory(data.plants);
+    });
+};
+
 const loadCardByCategory = (cardId) => {
+  manageSpinner(true);
   fetch(`https://openapi.programming-hero.com/api/category/${cardId}`)
     .then((res) => res.json())
     .then((data) => {
@@ -46,35 +65,38 @@ const loadCardByCategory = (cardId) => {
 const showCardByCategory = (plants) => {
   cardContainer.innerHTML = "";
   plants.forEach((plant) => {
-    console.log(plant);
     cardContainer.innerHTML += `
-                <div class="card bg-base-100 shadow-sm">
-              <figure class="px-4 pt-4">
+                <div class=" card bg-white rounded-xl shadow-sm">
+              
                 <img
                   src="${plant.image}"
                   alt=""
-                  class="rounded-xl  "
+                  class=" rounded-xl h-[200px] object-cover px-4 pt-4 "
                 />
-              </figure>
-              <div class="card-body p-4">
-                <h2 class="card-title">${plant.name}</h2>
-                <p>
+              
+              <div class=" p-4 card-body">
+                <h2 class="font-bold text-xl">${plant.name}</h2>
+                <p class="py-5">
                   ${plant.description}
                 </p>
-                <div class="flex justify-between items-center">
-                  <span class=" px-3 py-1 rounded-full text-[#15803d] font-medium  bg-[#dcfce7]">
+                <div class="flex justify-between items-center py-5">
+                  <span class=" px-3 py-1 rounded-full text-[#15803d] font-medium text-sm  bg-[#dcfce7]">
                   ${plant.category}
                   </span>
                   <p class="font-semibold">৳<span>${plant.price}</span></p>
                 </div>
 
-                <button class="btn text-white rounded-full bg-[#15803d]">
+                <div class="card-actions justify-end mt-auto">
+                <button class="btn text-white w-full rounded-full bg-[#15803d] ">
                   Add to Cart
                 </button>
+                </div>
               </div>
             </div>
     `;
   });
+  manageSpinner(false);
 };
 
 loadCategory();
+loadCardAll();
