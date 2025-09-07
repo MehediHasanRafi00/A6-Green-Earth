@@ -22,7 +22,13 @@
       rel="stylesheet"
     />
     <!-- font-awesome cdn -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -104,36 +110,40 @@
         <h2 class="text-3xl font-medium text-center mb-10">
           Choose Your Trees
         </h2>
+        <div id="spinner" class="flex justify-center items-center">
+          <span class="loading loading-dots loading-md"></span>
+        </div>
         <div class="grid md:grid-cols-12 grid-cols-1 gap-7.5 w-10/12 mx-auto">
           <div class="col-span-1 md:col-span-2">
             <h3 class="font-bold text-xl mb-4 text-center md:text-left">
               Categories
             </h3>
             <div id="">
-              <ul id="categoriesContainer" class=" flex flex-row md:flex-col flex-wrap justify-center gap-1"></ul>
+              <ul
+                id="categoriesContainer"
+                class="flex md:flex-col flex-wrap justify-center gap-1"
+              ></ul>
             </div>
           </div>
-          
-            <div  id="spinner"  class="flex justify-center items-center">
-              <span class="loading loading-dots loading-md"></span>
-            </div>
-          
-          <div id="cardContainer" class="col-span-1 md:col-span-8 grid gap-7 grid-cols-1 md:grid-cols-3 ">
+
+          <div
+            id="cardContainer"
+            class="col-span-1 md:col-span-8 grid gap-7 grid-cols-1 md:grid-cols-3"
+          >
             <!-- cards -->
-
           </div>
-          <div class="bg-white rounded-2xl col-span-1 md:col-span-2 p-4 shadow-sm">
-            <h3 class="font-bold text-xl mb-4 ">Your Cart</h3>
-            <div id="cartContainer" class=" space-y-2 ">
-
-            </div>
-            <div class="flex justify-between items-center font-medium pt-2 mt-3 border-t  border-[#87939570]">
+          <div
+            class="bg-white rounded-2xl col-span-1 md:col-span-2 p-4 shadow-sm"
+          >
+            <h3 class="font-bold text-xl mb-4">Your Cart</h3>
+            <div id="cartContainer" class="space-y-2"></div>
+            <div
+              class="flex justify-between items-center font-medium pt-2 mt-3 border-t border-[#87939570]"
+            >
               <div>
                 <p>Total:</p>
               </div>
-              <div>
-                ৳<span>0</span>
-              </div>
+              <div>৳<span id="totalPrice">0</span></div>
             </div>
           </div>
         </div>
@@ -223,6 +233,20 @@
         © 2025 Green Earth. All Rights Reserved.
       </p>
     </footer>
+
+    <dialog id="card-modal" class="modal modal-bottom sm:modal-middle">
+      <div  class="modal-box">
+        <div id="modalContainer">
+          
+        </div>
+        <div class="modal-action">
+          <form method="dialog">
+            <button class="btn">Close</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
     <script src="./script.js"></script>
   </body>
 </html>
