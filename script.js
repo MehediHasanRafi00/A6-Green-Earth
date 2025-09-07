@@ -1,5 +1,8 @@
 const categoriesContainer = document.getElementById("categoriesContainer");
 const cardContainer = document.getElementById("cardContainer");
+const cartContainer = document.getElementById("cartContainer");
+
+let cart = [];
 
 const manageSpinner = (status) => {
   if (status === true) {
@@ -23,7 +26,7 @@ loadCategory = () => {
 showCategory = (category) => {
   category.forEach((cat) => {
     categoriesContainer.innerHTML += `
-    <li id="${cat.id}" class=" p-2  font-medium hover:text-white hover:bg-[#15803d] rounded-[4px] list-none cursor-pointer">
+    <li id="${cat.id}" class=" p-2  font-medium hover:text-white hover:bg-[#15803d] rounded-[4px]  cursor-pointer">
     ${cat.category_name}
     </li>
     `;
@@ -66,36 +69,61 @@ const showCardByCategory = (plants) => {
   cardContainer.innerHTML = "";
   plants.forEach((plant) => {
     cardContainer.innerHTML += `
-                <div class=" card bg-white rounded-xl shadow-sm">
-              
-                <img
-                  src="${plant.image}"
-                  alt=""
-                  class=" rounded-xl h-[200px] object-cover px-4 pt-4 "
-                />
-              
-              <div class=" p-4 card-body">
-                <h2 class="font-bold text-xl">${plant.name}</h2>
-                <p class="py-5">
-                  ${plant.description}
-                </p>
-                <div class="flex justify-between items-center py-5">
-                  <span class=" px-3 py-1 rounded-full text-[#15803d] font-medium text-sm  bg-[#dcfce7]">
-                  ${plant.category}
-                  </span>
-                  <p class="font-semibold">৳<span>${plant.price}</span></p>
-                </div>
+               
+            <div id="${plant.id}" class="shadow-sm p-4 space-y-5 bg-white rounded-xl">
+        <img class="rounded-xl h-[200px] w-[400px] object-cover" src="${plant.image}" alt="">
+        <h1 class="font-bold">${plant.name}</h1>
+        <p>${plant.description}</p>
+        <div class="flex justify-between">
+            <span class="py-1 px-3 rounded-full text-sm bg-[#dcfce7] text-[#15803d]">${plant.category}</span>
+            <p class="font-medium ">৳<span>${plant.price}</span></p>
+        </div>
+        <button class="btn rounded-full bg-[#15803d] w-full text-white">Add to Cart</button>
+    </div>
 
-                <div class="card-actions justify-end mt-auto">
-                <button class="btn text-white w-full rounded-full bg-[#15803d] ">
-                  Add to Cart
-                </button>
-                </div>
-              </div>
-            </div>
+            
     `;
   });
   manageSpinner(false);
+};
+
+cardContainer.addEventListener("click", (e) => {
+  if (e.target.innerText === "Add to Cart") {
+    handleCart(e);
+  }
+});
+
+const handleCart = (e) => {
+  const plantName = e.target.parentNode.children[1].innerText;
+  const plantPrice =
+    e.target.parentNode.children[3].children[1].children[0].innerText;
+  const plantId = e.target.parentNode.id;
+
+  cart.push({
+    name: plantName,
+    price: plantPrice,
+    id: plantId,
+  });
+  showCart(cart);
+};
+
+const showCart = (carts) => {
+  cartContainer.innerHTML = "";
+  carts.forEach((cart) => {
+    cartContainer.innerHTML += `
+                  <div class="flex justify-between items-center bg-[#f0fdf4] rounded-lg p-2">
+                <div>
+                  <h4 class="font-semibold">${cart.name}</h4>
+                  <p class="text-[#879395]">৳<span>${cart.price}</span> x 1</p>
+                </div>
+                <div class="text-[#879395]"><span>
+                  <i class="fa-solid fa-x"></i>
+                </span></div>
+              </div>
+    `;
+  });
+
+  
 };
 
 loadCategory();
