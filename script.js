@@ -107,7 +107,7 @@ cardContainer.addEventListener("click", (e) => {
 
 const handleCart = (e) => {
   const plantName = e.target.parentNode.children[1].innerText;
-  // alert(`${plantName} has been added to the cart`);
+  alert(`${plantName} has been added to the cart`)
   const plantPrice =
     e.target.parentNode.children[3].children[1].children[0].innerText;
   const plantId = e.target.parentNode.id;
