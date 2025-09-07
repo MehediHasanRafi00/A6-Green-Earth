@@ -74,7 +74,7 @@ const showCardByCategory = (plants) => {
                
             <div id="${
               plant.id
-            }" class="shadow-sm p-4 space-y-5 bg-white rounded-xl">
+            }" class="shadow-sm p-4 space-y-5 bg-white h-fit rounded-xl">
         <img class="rounded-xl h-[200px] w-[400px] object-cover" src="${
           plant.image
         }" alt="">
